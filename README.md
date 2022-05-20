@@ -19,8 +19,11 @@ As a user I want to
 
 Technologies Used
 HTML
+
 CSS
+
 JavaScript (logic and DOM manipulation)
+
 Canvas 
 
 Wireframes:
