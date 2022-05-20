@@ -18,6 +18,7 @@ As a user I want to
 . Destroy all bricks on screen within the 3 given lives
 
 Technologies Used
+
 HTML
 
 CSS
@@ -28,4 +29,6 @@ Canvas
 
 Wireframes:
 what game will look like
+
+![PXL_20220520_203513190](https://user-images.githubusercontent.com/102341554/169607056-c7db7766-87ab-4b04-8ffd-884e0a9252a5.jpg)
 
