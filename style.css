@@ -13,7 +13,7 @@ html,body {
   
   h1, h2 {
     font-family: 'Impact';
-    font-size: 40px;
+    font-size: 30px;
     color: goldenrod;
   }
   
@@ -28,15 +28,15 @@ html,body {
   /* height: 70vh; */
   background-color: blueviolet;
   margin: auto;
-  margin-top: 100px;
+  margin-top: 75px;
   padding: 1em;
   display: grid;
   grid-gap: 1em;
-  grid-template-rows: .25fr .5fr .25fr;
-  grid-template-columns: .25fr .5fr .25fr;
+  grid-template-rows: 75px 450px 100px;
+  grid-template-columns: 75px 600px 100px;
   grid-template-areas: "top-left top-left top-right"
                         "game game game"
-                        "btm-left btm-right btm-right";
+                        "btm-left center btm-right";
     border: 5px solid goldenrod;
   }
   
@@ -49,6 +49,7 @@ html,body {
   
   #top-left {
     grid-area: top-left;
+   
   }
   
   #top-right {
@@ -64,11 +65,13 @@ html,body {
   
   #btm-left {
     grid-area: btm-left;
+
     /* background-color: #222; */
   }
   
   #btm-right {
     grid-area: btm-right;
+    
     /* background-color: #222; */
   }
 
