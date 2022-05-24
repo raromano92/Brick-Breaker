@@ -7,6 +7,7 @@ Premise: Destroy all bricks to win the game
 User Story
 
 As a user I want to
+
 . Control paddle using mouse movement
 
 . Predict ball movement based on ball trajectory off canvas top/sides
