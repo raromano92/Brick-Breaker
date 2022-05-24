@@ -36,15 +36,11 @@ window.addEventListener("DOMContentLoaded", function (e) {
 });
 
 
-
-
-
-
 // Rendering our paddle on screen
 function makePaddle() {
     
     ctx.fillStyle = 'white'
-    ctx.fillRect(380, 435, 60, 10)
+    ctx.fillRect(365, 435, 80, 10)
     
 }
 // Invoking Paddle
@@ -52,13 +48,14 @@ function makePaddle() {
 
 // Setting up our brick variables
 
-let brickRowTotal = 5;
+let brickRowTotal = 6;
 let brickColumnTotal = 10;
-let brickWidth = 65;
+let brickWidth = 70;
 let brickHeight = 15;
 let brickPadding = 10;
-let brickOffSetTop = 30;
-let brickOffSetLeft = 30;
+let brickOffSetTop = 10;
+let brickOffSetLeft = 10;
+
 
 // Creating our field of bricks utilizing for loops for the rows and columns
 
@@ -99,14 +96,48 @@ function makeBricks() {
     }
     }
 
-    // Build everything in here (ball, interval, etc.)
-function drawGame() {
+    let ballX = canvas.width / 2
+    let ballY = canvas.height / 2
+    let ballXDelta = 3;
+    let ballYDelta = 3;
+    let radius = 20;
 
+    function makeBall() {
+
+    ctx.strokeStyle = "gold"
+    ctx.beginPath();
+    ctx.arc(ballX, ballY, radius, 0, 2 * Math.PI);
+    ctx.fill();
+    ctx.stroke();
+    
+    }
+
+    // Call everything in here (ball, interval, etc.)
+function gameLoop() {
+
+    
+    makeBall();
     makeBricks();
     makePaddle();
 
+   
+    
+    
+
 }
-drawGame();
+gameLoop();
+
+
+// top left: x: 170, y: 202 / bottom right x: 978, y: 652
+canvas.addEventListener('mousemove', function(e) {
+    console.log(`x: ${ e.x } | y: ${ e.y }`);
+});
+
+
+   
+
+
+
 
     
 
