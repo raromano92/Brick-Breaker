@@ -39,7 +39,7 @@ function makePaddle() {
 
 // Setting up our brick variables
 
-let brickRowTotal = 6;
+let brickRowTotal = 5;
 let brickColumnTotal = 10;
 let brickWidth = 70;
 let brickHeight = 15;
@@ -98,9 +98,10 @@ function makeBricks() {
       // Ending path here
       ctx.closePath();
         // console.log(ballX, brickX)
-      if (ballX >= brickX && ballX < brickX + brickWidth && ballY <= brickY) {
+      if (ballX > brickX && ballX < brickX + brickWidth && ballY < brickY) {
         console.log("WORKING???");
-        bricks.splice(bricks[c][r], 1);
+        ballYDelta = -ballYDelta
+        
         
         }
     }
@@ -172,7 +173,7 @@ function gameLoop() {
   hitDetect();
   ballX = ballX + ballXDelta;
   ballY = ballY + ballYDelta;
-  
+  makeBricks();
   makePaddle();
   
 }
