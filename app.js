@@ -100,7 +100,8 @@ function makeBricks() {
         // console.log(ballX, brickX)
       if (ballX >= brickX && ballX < brickX + brickWidth && ballY <= brickY) {
         console.log("WORKING???");
-            
+        bricks.splice(bricks[c][r], 1);
+        
         }
     }
 
@@ -161,7 +162,7 @@ function hitDetect() {
     ballYDelta *= -1;
   }
 }
-
+makeBricks();
 // This will be our **MEGA** function that holds all the other functions and runs them once it's called
 // Call everything in here (ball, interval, etc.)
 function gameLoop() {
@@ -171,7 +172,7 @@ function gameLoop() {
   hitDetect();
   ballX = ballX + ballXDelta;
   ballY = ballY + ballYDelta;
-  makeBricks();
+  
   makePaddle();
   
 }
