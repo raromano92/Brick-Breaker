@@ -37,7 +37,7 @@ html,body {
   grid-template-areas: "top-left top-left top-right"
                         "game game game"
                         "btm-left center btm-right";
-    border: 5px solid goldenrod;
+  border: 5px solid goldenrod;
   }
   
   #top-left, #top-right, #btm-left, #btm-right {
