@@ -6,6 +6,18 @@ let ctx = game.getContext("2d"); // 2d canvas for the game
 let score = document.querySelector("score"); // keeping track of score
 let paddle = document.querySelector("#paddle");
 let ball = document.querySelector("#ball");
+let brickRowTotal = 5;
+let brickColumnTotal = 10;
+let brickWidth = 70;
+let brickHeight = 15;
+let brickPadding = 10;
+let brickOffSetTop = 10;
+let brickOffSetLeft = 10;
+let brickShow = false;
+let pDelta = 0;
+let pSpeed = 3;
+let leftArrowDown = false;
+let rightArrowDown = false;
 
 // Setting our width and height for the canvas
 game.setAttribute("height", getComputedStyle(game)["height"]);
@@ -18,7 +30,7 @@ class BrickBreak {
     this.color = color;
     this.height = height;
     this.width = width;
-    this.alive = true;
+    this.gotHit = true;
   }
 
   // Setting up render function so we can get our elements to appear on canvas once created
@@ -33,19 +45,36 @@ window.addEventListener("DOMContentLoaded", function (e) {});
 
 // Creating and styling our paddle within this one function
 function makePaddle() {
+  ctx.beginPath();
+  ctx.rect(paddle.x, paddle.y, paddle.w, paddle.h);
   ctx.fillStyle = "white";
   ctx.fillRect(365, 435, 60, 10);
+  ctx.closePath();
+  
+}
+    // Making our function for side to side paddle movement
+ function keyDown(e) {
+     if(e.keyCode === 37) {
+         leftArrowDown = true;
+         console.log("left arrow down")
+     }
+     else if(e.keyCode === 39) {
+         rightArrowDown = true;
+         console.log("right arrow down")
+    }
 }
 
-// Setting up our brick variables
+function keyUp(e) {
+    if(e.keyCode === 37) {
+        leftArrowDown = false;
+        
+    }
+    else if(e.keyCode === 39) {
+        rightArrowDown = false;
+        
+   }
+}
 
-let brickRowTotal = 5;
-let brickColumnTotal = 10;
-let brickWidth = 70;
-let brickHeight = 15;
-let brickPadding = 10;
-let brickOffSetTop = 10;
-let brickOffSetLeft = 10;
 
 // class BrickProps{
 //     constructor(x1, y1, color1) {
@@ -58,12 +87,12 @@ let brickOffSetLeft = 10;
 //     }
 // }
 
+let bricks = [];
 
-    let bricks = [];
 // Creating our field of bricks utilizing for loops for the rows and columns
 function makeBricks() {
   // Creating our empty array and for loop for brick columns
-  
+
   for (let c = 0; c < brickColumnTotal; c++) {
     bricks[c] = [];
     // console.log("firstLoop")
@@ -97,18 +126,29 @@ function makeBricks() {
       ctx.fill();
       // Ending path here
       ctx.closePath();
-        // console.log(ballX, brickX)
+
+      // console.log(ballX, brickX)
+      //  Testing logic if ball crosses x or y axis of one of the bricks in the grid (it logged)
       if (ballX > brickX && ballX < brickX + brickWidth && ballY < brickY) {
         console.log("WORKING???");
-        ballYDelta = -ballYDelta
-        
-        
-        }
-    }
+        ballYDelta = -ballYDelta;
+      }
 
-  }
-    
+        // if (
+        //   ballX - radius > brickX &&
+        //   ballX + radius < brickX + brickWidth &&
+        //   ballY + radius > brickY &&
+        //   ballY - radius < brickY + brickHeight
+        // ) {
+        //   ballYDelta *= -1;
+        //   brickShow = false;
+        // }
+      }
+    }
+  
 }
+
+
 
 // Making our variables for the game ball
 // Ball will start it's path from center canvas for now
@@ -117,25 +157,10 @@ let ballY = canvas.height / 2;
 // Delta refers to the new location of the ball everytime it's moving on screen (using to set direction/speed of ball)
 let ballXDelta = 10;
 let ballYDelta = 10;
+
 // Basically setting size of the ball using radius here
 let radius = 10;
 
-// function brickDetect() {
-//     for (c = 0; c < brickColumnTotal; c++) {
-//       for (r = 0; r < brickRowTotal; r++) {
-//       //   let b = bricks[c][r];
-//         // if(ballX < b.x && ballX > b.x+brickWidth && ballY < b.y && ballY > b.y+brickHeight) {
-//         //     ballYDelta = -ballYDelta
-//         // console.log(brickDetect)
-//         //   if (ballX >= brickX && ballX < brickX.brickWidth) {
-//         //     if (ballY >= brickY && ballY < brickY.brickheight) {
-//         // console.log(brickDetect.toString());
-//         // }
-//         //   }
-       
-//       }
-//     }
-//   }
 
 // Going to set up our function for the ball's animation
 function makeBall() {
@@ -163,7 +188,7 @@ function hitDetect() {
     ballYDelta *= -1;
   }
 }
-makeBricks();
+
 // This will be our **MEGA** function that holds all the other functions and runs them once it's called
 // Call everything in here (ball, interval, etc.)
 function gameLoop() {
@@ -176,10 +201,15 @@ function gameLoop() {
   makeBricks();
   makePaddle();
   
+  
 }
 
 // Using SetInterval for how often the gameloop updates
 setInterval(gameLoop, 100);
+
+// Event handlers
+document.addEventListener('keydown', keyDown, false);
+document.addEventListener('keyup', keyUp, false);
 
 // Logging mousemovements to determine dimensions of canvas
 // top left: x: 170, y: 202 / bottom right x: 978, y: 652
