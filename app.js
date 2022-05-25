@@ -14,7 +14,7 @@ let brickPadding = 10;
 let brickOffSetTop = 10;
 let brickOffSetLeft = 10;
 let brickShow = false;
-let paddleSpeed = 3;
+let paddleSpeed = 10;
 let paddleX = 365;
 let paddleY = 435;
 let leftArrowDown = false;
@@ -51,22 +51,27 @@ window.addEventListener('DOMContentLoaded', (event) => {
 // Creating and styling our paddle within this one function
 function makePaddle() {
   ctx.beginPath();
-  ctx.rect(paddle.x, paddle.y, paddle.w, paddle.h);
+//   ctx.rect(paddle.x, paddle.y, paddle.w, paddle.h);
   ctx.fillStyle = "white";
-  ctx.fillRect(365, 435, 60, 10);
+  ctx.fillRect(paddleX, paddleY, 60, 10);
   ctx.closePath();
 }
 // Making our function for keypress down
 function keyDown(e) {
   if (e.keyCode === 37) {
-    // 37 is keycode for left Arrow
+  if(paddleX > 4) {
     leftArrowDown = true;
+    paddleX -= paddleSpeed;
     console.log("left arrow down");
-
+  }
+    // 37 is keycode for left Arrow
   } else if (e.keyCode === 39) {
-      // 39 is keycode for right Arrow
+      if(paddleX + 60 < 800) {
+ // 39 is keycode for right Arrow
     rightArrowDown = true;
+    paddleX += paddleSpeed;
     console.log("right arrow down");
+      }
   }
 }
 
@@ -83,15 +88,15 @@ function keyUp(e) {
 }
 
 // Making our function for side to side paddle movement
-function movePaddle() {
-  if (leftArrowDown === true) {
-    paddleX -= paddleSpeed;
+// function movePaddle(keyUp, keyDown) {
+//   if (leftArrowDown === true) {
+   
 
-  } else if (rightArrowDown === true) {
-    paddleX += paddleSpeed;
-  }
-}
-    console.log(movePaddle)
+//   } else if (rightArrowDown === true) {
+    
+//   }
+// }
+//     console.log(movePaddle)
 
 // class BrickProps{
 //     constructor(x1, y1, color1) {
@@ -149,6 +154,7 @@ function makeBricks() {
       if (ballX > brickX && ballX < brickX + brickWidth && ballY < brickY) {
         console.log("WORKING???");
         ballYDelta = -ballYDelta;
+        brickShow = false;
       }
 
       // if (
@@ -213,7 +219,7 @@ function gameLoop() {
   ballY = ballY + ballYDelta;
   makeBricks();
   makePaddle();
-  movePaddle();
+//   movePaddle();
   
 }
 
