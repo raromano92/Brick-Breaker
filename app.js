@@ -13,14 +13,13 @@ let brickHeight = 15;
 let brickPadding = 10;
 let brickOffSetTop = 10;
 let brickOffSetLeft = 10;
-let brickShow = false;
+let brickShow = true;
 let paddleSpeed = 10;
 let paddleX = 365;
 let paddleY = 435;
 let leftArrowDown = false;
 let rightArrowDown = false;
 // Event handlers
-
 
 // Setting our width and height for the canvas
 canvas.setAttribute("height", getComputedStyle(canvas)["height"]);
@@ -44,34 +43,34 @@ class BrickBreak {
 }
 
 // Loading DOM Content
-window.addEventListener('DOMContentLoaded', (event) => {
-    console.log('DOM fully loaded and parsed');
+window.addEventListener("DOMContentLoaded", (event) => {
+  // console.log('DOM fully loaded and parsed');
 });
 
 // Creating and styling our paddle within this one function
 function makePaddle() {
   ctx.beginPath();
-//   ctx.rect(paddle.x, paddle.y, paddle.w, paddle.h);
-  ctx.fillStyle = "white";
+  ctx.rect(paddle.x, paddle.y, paddle.w, paddle.h);
+  ctx.fillStyle = "gold";
   ctx.fillRect(paddleX, paddleY, 60, 10);
   ctx.closePath();
 }
 // Making our function for keypress down
 function keyDown(e) {
   if (e.keyCode === 37) {
-  if(paddleX > 4) {
-    leftArrowDown = true;
-    paddleX -= paddleSpeed;
-    console.log("left arrow down");
-  }
+    if (paddleX > 4) {
+      leftArrowDown = true;
+      paddleX -= paddleSpeed;
+      // console.log("left arrow down");
+    }
     // 37 is keycode for left Arrow
   } else if (e.keyCode === 39) {
-      if(paddleX + 60 < 800) {
- // 39 is keycode for right Arrow
-    rightArrowDown = true;
-    paddleX += paddleSpeed;
-    console.log("right arrow down");
-      }
+    if (paddleX + 60 < 800) {
+      // 39 is keycode for right Arrow
+      rightArrowDown = true;
+      paddleX += paddleSpeed;
+      // console.log("right arrow down");
+    }
   }
 }
 
@@ -79,21 +78,19 @@ function keyDown(e) {
 function keyUp(e) {
   if (e.keyCode === 37) {
     leftArrowDown = false;
-    console.log("left key released")
-
+    // console.log("left key released")
   } else if (e.keyCode === 39) {
     rightArrowDown = false;
-    console.log("right key released")
+    // console.log("right key released")
   }
 }
 
 // Making our function for side to side paddle movement
 // function movePaddle(keyUp, keyDown) {
 //   if (leftArrowDown === true) {
-   
 
 //   } else if (rightArrowDown === true) {
-    
+
 //   }
 // }
 //     console.log(movePaddle)
@@ -114,7 +111,6 @@ let bricks = [];
 // Creating our field of bricks utilizing for loops for the rows and columns
 function makeBricks() {
   // Creating our empty array and for loop for brick columns
-
   for (let c = 0; c < brickColumnTotal; c++) {
     bricks[c] = [];
     // console.log("firstLoop")
@@ -127,7 +123,6 @@ function makeBricks() {
       // Creating new X and Y variables which will calculate new position of the next brick as for loop is running
       let brickX = c * (brickWidth + brickPadding) + brickOffSetLeft;
       // console.log(brickX)
-
       let brickY = r * (brickHeight + brickPadding) + brickOffSetTop;
       // console.log(brickY)
 
@@ -151,32 +146,41 @@ function makeBricks() {
 
       // console.log(ballX, brickX)
       //  Testing logic if ball crosses x or y axis of one of the bricks in the grid (it logged)
+      // Need to write a for each statement to check for collision then splice individual brick if hit
+
       if (ballX > brickX && ballX < brickX + brickWidth && ballY < brickY) {
-        console.log("WORKING???");
+        // console.log("WORKING???");
         ballYDelta = -ballYDelta;
-        brickShow = false;
       }
 
-      // if (
-      //   ballX - radius > brickX &&
-      //   ballX + radius < brickX + brickWidth &&
-      //   ballY + radius > brickY &&
-      //   ballY - radius < brickY + brickHeight
-      // ) {
-      //   ballYDelta *= -1;
-      //   brickShow = false;
-      // }
+      bricks.forEach((brick) => {
+            if (ballX > brick.x && ballX < brick.x + brickWidth && ballY < brick.y) {
+                // console.log("WORKING???");
+                ballYDelta = -ballYDelta;
+              
+        //   ballX + brickWidth > brickX &&
+        //   ballX < brickX + brickWidth &&
+        //   ballY + brickHeight > brickY &&
+        //   ballY < brickY + brickHeight
+        
+          bricks.splice(2, 3);
+          console.log(brick)
+          ballYDelta *= -1;
+            }
+        });
+        
+      }
     }
-  }
 }
+
 
 // Making our variables for the game ball
 // Ball will start it's path from center canvas for now
 let ballX = canvas.width / 2;
 let ballY = canvas.height / 2;
 // Delta refers to the new location of the ball everytime it's moving on screen (using to set direction/speed of ball)
-let ballXDelta = 5;
-let ballYDelta = 5;
+let ballXDelta = 3;
+let ballYDelta = 3;
 
 // Basically setting size of the ball using radius here
 let radius = 10;
@@ -208,6 +212,10 @@ function hitDetect() {
   }
 }
 
+// function brickDetect() {
+//    bricks.forEach(brick => console.log(brick));
+// }
+
 // This will be our **MEGA** function that holds all the other functions and runs them once it's called
 // Call everything in here (ball, interval, etc.)
 function gameLoop() {
@@ -219,19 +227,13 @@ function gameLoop() {
   ballY = ballY + ballYDelta;
   makeBricks();
   makePaddle();
-//   movePaddle();
-  
+  //   brickDetect();
+  //   movePaddle();
 }
 
 // Using SetInterval for how often the gameloop updates
-setInterval(gameLoop, 10);
+setInterval(gameLoop, 50);
 
-    // Event Handlers 
-    document.addEventListener('keydown', keyDown, false)
-    document.addEventListener('keyup', keyUp, false)
-            
-// Logging mousemovements to determine dimensions of canvas
-// top left: x: 170, y: 202 / bottom right x: 978, y: 652
-//     canvas.addEventListener('mousemove', function(e) {
-//     console.log(`x: ${ e.x } | y: ${ e.y }`);
-// });
+// Event Handlers
+document.addEventListener("keydown", keyDown, false);
+document.addEventListener("keyup", keyUp, false);
