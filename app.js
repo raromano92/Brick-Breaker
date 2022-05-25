@@ -59,10 +59,12 @@ function makePaddle() {
 // Making our function for keypress down
 function keyDown(e) {
   if (e.keyCode === 37) {
+    // 37 is keycode for left Arrow
     leftArrowDown = true;
     console.log("left arrow down");
 
   } else if (e.keyCode === 39) {
+      // 39 is keycode for right Arrow
     rightArrowDown = true;
     console.log("right arrow down");
   }
@@ -219,8 +221,8 @@ function gameLoop() {
 setInterval(gameLoop, 10);
 
     // Event Handlers 
-    document.addEventListener('keydown', keyDown)
-    document.addEventListener('keyup', keyUp)
+    document.addEventListener('keydown', keyDown, false)
+    document.addEventListener('keyup', keyUp, false)
             
 // Logging mousemovements to determine dimensions of canvas
 // top left: x: 170, y: 202 / bottom right x: 978, y: 652
