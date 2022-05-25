@@ -1,8 +1,8 @@
 // console.log("testing!")
 
 // Setting up canvas and all of my elements for game
-let game = document.querySelector("#canvas");
-let ctx = game.getContext("2d"); // 2d canvas for the game
+let canvas = document.querySelector("#canvas");
+let ctx = canvas.getContext("2d"); // 2d canvas for the game
 let score = document.querySelector("score"); // keeping track of score
 let paddle = document.querySelector("#paddle");
 let ball = document.querySelector("#ball");
@@ -14,14 +14,17 @@ let brickPadding = 10;
 let brickOffSetTop = 10;
 let brickOffSetLeft = 10;
 let brickShow = false;
-let pDelta = 0;
-let pSpeed = 3;
+let paddleSpeed = 3;
+let paddleX = 365;
+let paddleY = 435;
 let leftArrowDown = false;
 let rightArrowDown = false;
+// Event handlers
+
 
 // Setting our width and height for the canvas
-game.setAttribute("height", getComputedStyle(game)["height"]);
-game.setAttribute("width", getComputedStyle(game)["width"]);
+canvas.setAttribute("height", getComputedStyle(canvas)["height"]);
+canvas.setAttribute("width", getComputedStyle(canvas)["width"]);
 
 class BrickBreak {
   constructor(x, y, color, width, height) {
@@ -41,7 +44,9 @@ class BrickBreak {
 }
 
 // Loading DOM Content
-window.addEventListener("DOMContentLoaded", function (e) {});
+window.addEventListener('DOMContentLoaded', (event) => {
+    console.log('DOM fully loaded and parsed');
+});
 
 // Creating and styling our paddle within this one function
 function makePaddle() {
@@ -50,31 +55,41 @@ function makePaddle() {
   ctx.fillStyle = "white";
   ctx.fillRect(365, 435, 60, 10);
   ctx.closePath();
-  
 }
-    // Making our function for side to side paddle movement
- function keyDown(e) {
-     if(e.keyCode === 37) {
-         leftArrowDown = true;
-         console.log("left arrow down")
-     }
-     else if(e.keyCode === 39) {
-         rightArrowDown = true;
-         console.log("right arrow down")
-    }
+// Making our function for keypress down
+function keyDown(e) {
+  if (e.keyCode === 37) {
+    leftArrowDown = true;
+    console.log("left arrow down");
+
+  } else if (e.keyCode === 39) {
+    rightArrowDown = true;
+    console.log("right arrow down");
+  }
 }
 
+// Function for arrowkey release
 function keyUp(e) {
-    if(e.keyCode === 37) {
-        leftArrowDown = false;
-        
-    }
-    else if(e.keyCode === 39) {
-        rightArrowDown = false;
-        
-   }
+  if (e.keyCode === 37) {
+    leftArrowDown = false;
+    console.log("left key released")
+
+  } else if (e.keyCode === 39) {
+    rightArrowDown = false;
+    console.log("right key released")
+  }
 }
 
+// Making our function for side to side paddle movement
+function movePaddle() {
+  if (leftArrowDown === true) {
+    paddleX -= paddleSpeed;
+
+  } else if (rightArrowDown === true) {
+    paddleX += paddleSpeed;
+  }
+}
+    console.log(movePaddle)
 
 // class BrickProps{
 //     constructor(x1, y1, color1) {
@@ -134,33 +149,29 @@ function makeBricks() {
         ballYDelta = -ballYDelta;
       }
 
-        // if (
-        //   ballX - radius > brickX &&
-        //   ballX + radius < brickX + brickWidth &&
-        //   ballY + radius > brickY &&
-        //   ballY - radius < brickY + brickHeight
-        // ) {
-        //   ballYDelta *= -1;
-        //   brickShow = false;
-        // }
-      }
+      // if (
+      //   ballX - radius > brickX &&
+      //   ballX + radius < brickX + brickWidth &&
+      //   ballY + radius > brickY &&
+      //   ballY - radius < brickY + brickHeight
+      // ) {
+      //   ballYDelta *= -1;
+      //   brickShow = false;
+      // }
     }
-  
+  }
 }
-
-
 
 // Making our variables for the game ball
 // Ball will start it's path from center canvas for now
 let ballX = canvas.width / 2;
 let ballY = canvas.height / 2;
 // Delta refers to the new location of the ball everytime it's moving on screen (using to set direction/speed of ball)
-let ballXDelta = 10;
-let ballYDelta = 10;
+let ballXDelta = 5;
+let ballYDelta = 5;
 
 // Basically setting size of the ball using radius here
 let radius = 10;
-
 
 // Going to set up our function for the ball's animation
 function makeBall() {
@@ -200,17 +211,17 @@ function gameLoop() {
   ballY = ballY + ballYDelta;
   makeBricks();
   makePaddle();
-  
+  movePaddle();
   
 }
 
 // Using SetInterval for how often the gameloop updates
-setInterval(gameLoop, 100);
+setInterval(gameLoop, 10);
 
-// Event handlers
-document.addEventListener('keydown', keyDown, false);
-document.addEventListener('keyup', keyUp, false);
-
+    // Event Handlers 
+    document.addEventListener('keydown', keyDown)
+    document.addEventListener('keyup', keyUp)
+            
 // Logging mousemovements to determine dimensions of canvas
 // top left: x: 170, y: 202 / bottom right x: 978, y: 652
 //     canvas.addEventListener('mousemove', function(e) {
