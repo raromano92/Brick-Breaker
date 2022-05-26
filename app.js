@@ -188,7 +188,6 @@ function hitDetect() {
   }
 }
  
-
   for (let c = 0; c < brickColumnTotal; c++) {
     // Creating a for loop which iterates through bricks array and states collision logic and changes status if brick is hit
     for (let r = 0; r < brickRowTotal; r++) {
