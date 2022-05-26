@@ -8,7 +8,7 @@ User Story
 
 As a user I want to
 
-. Control paddle using mouse movement
+. Control paddle using arrow movement
 
 . Predict ball movement based on ball trajectory off canvas top/sides
 
@@ -16,7 +16,7 @@ As a user I want to
 
 . Don't allow ball to hit bottom of canvas
 
-. Destroy all bricks on screen within the 3 given lives
+. Destroy all bricks on screen, only 1 life so be careful!
 
 Technologies Used
 
