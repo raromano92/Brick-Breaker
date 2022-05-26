@@ -17,7 +17,7 @@ let brickShow = true;
 let paddleSpeed = 20;
 let paddleWidth = 60;
 let paddleHeight = 10;
-let paddleX = 440;
+let paddleX = canvas.width / 2
 let paddleY = 435;
 let leftArrowDown = false;
 let rightArrowDown = false;
@@ -143,8 +143,8 @@ function makeBricks() {
 let ballX = canvas.width / 2;
 let ballY = canvas.height / 2;
 // Delta refers to the new location of the ball everytime it's moving on screen (using to set direction/speed of ball)
-let ballXDelta = -2;
-let ballYDelta = -2;
+let ballXDelta = 2;
+let ballYDelta = 2;
 
 // Basically setting size of the ball using radius here
 let radius = 10;
@@ -167,35 +167,46 @@ function makeBall() {
 // Making a function for hit detection whenever ball collides with sides of canvas AND bricks
 function hitDetect() {
   //  if ball on X axis trys to leave canvas, we set the movement to a negative value using Delta to rebound it in the opposite direction
+  // This logic allows for bounces off left and right of canvas
   if (ballX + ballXDelta > 806 - radius || ballX + ballXDelta < radius) {
     // Shorthand syntax for multiplying current location for new location
     ballXDelta *= -1;
 }
+// This logic allows for bounces off the top
   if (ballY + ballYDelta < 0) {
     ballYDelta *= -1;
   }
-  else if(ballY + ballYDelta > 470) {
-    // alert("GAME OVER")
+  // // This logic allows for the ball to rebound off the paddle
+  if (ballX > paddleX &&
+      ballX < paddleX + paddleWidth &&
+      ballY + radius > paddleY) {
+      ballYDelta *= -1;
+  }
+  // This logic allows ball to exit bottom of screen and call for "game over"
+  else if (ballY + ballYDelta > 470) {
+    alert("GAME OVER")
   }
 }
-  // for (let c = 0; c < brickColumnTotal; c++) {
-  //   // Creating a for loop which iterates through bricks array and states collision logic and changes status if brick is hit
-  //   for (let r = 0; r < brickRowTotal; r++) {
-  //     let brick = bricks[c][r];
-  //     // console.log(brick)
-  //     if (brick.status === 1) {
-  //       if (
-  //         ballX > brick.x &&
-  //         ballX < brick.x + brickWidth &&
-  //         ballY < brick.y
-  //       ) {
-  //         ballYDelta = -ballYDelta;
-  //         brick.status = 0;
-  //         console.log(brick);
-  //       }
-  //     }
-  //   }
-  // }
+ 
+
+  for (let c = 0; c < brickColumnTotal; c++) {
+    // Creating a for loop which iterates through bricks array and states collision logic and changes status if brick is hit
+    for (let r = 0; r < brickRowTotal; r++) {
+      let brick = bricks[c][r];
+      // console.log(brick)
+      if (brick.status === 1) {
+        if (
+          ballX > brick.x &&
+          ballX < brick.x + brickWidth &&
+          ballY < brick.y
+        ) {
+          ballYDelta = -ballYDelta;
+          brick.status = 0;
+          console.log(brick);
+        }
+      }
+    }
+  }
 
 
 // This will be our **MEGA** function that holds all the other functions and runs them once it's called
@@ -213,7 +224,7 @@ function gameLoop() {
 }
 
 // Using SetInterval for how often the gameloop updates
-setInterval(gameLoop, 10);
+setInterval(gameLoop, 20);
 // let interval = setInterval(gameLoop, 10)
 
 // Event Handlers
