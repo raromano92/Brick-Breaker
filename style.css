@@ -80,3 +80,9 @@ html,body {
       margin: 0 auto;
   }
   
+  #gg {
+    align-items: center;
+    justify-content: center;
+    color: red;
+
+  }

@@ -210,14 +210,21 @@ function hitDetect() {
   }
 }
 
+// Making a game over function based on ball leaving bottom of canvas logic
 function endGame() {
   if (ballY + ballYDelta > 470) {
     gameOver = true;
   }
-    if(gameOver === true) {
-      console.log("gg")
-    }
-    return;
+  if (gameOver === true) {
+    // console.log("gg")
+  }
+  if (gameOver) {
+    // console.log("YOU LOSE!");
+    // Adding reload method after gameover occurs so it clears the canvas for the next game
+    document.location.reload();
+    clearInterval(interval);
+  }
+  // document.location.reload();
 }
 
 // This will be our **MEGA** function that holds all the other functions and runs them once it's called
