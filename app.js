@@ -51,7 +51,7 @@ window.addEventListener("DOMContentLoaded", (event) => {
 function makePaddle() {
   ctx.beginPath();
   ctx.rect(paddle.x, paddle.y, paddle.w, paddle.h);
-  ctx.fillStyle = "gold";
+  ctx.fillStyle = "goldenrod";
   ctx.fillRect(paddleX, paddleY, 60, 10);
   ctx.closePath();
 }
@@ -85,39 +85,19 @@ function keyUp(e) {
     // console.log("right key released")
   }
 }
-
-// Making our function for side to side paddle movement
-// function movePaddle(keyUp, keyDown) {
-//   if (leftArrowDown === true) {
-
-//   } else if (rightArrowDown === true) {
-
-//   }
-// }
-//     console.log(movePaddle)
-
-// class BrickProps{
-//     constructor(x1, y1, color1) {
-//     this.x = x1;
-//     this.y = y1;
-//     this.w = 50;
-//     this.h = 20;
-//     this.color = color1;
-//     this.gotHit = false;
-//     }
-// }
-
+// Moved column/row for loops outside of function to make things easier elsewhere
 let bricks = [];
+// for loop for our columns
 for (let c = 0; c < brickColumnTotal; c++) {
   bricks[c] = [];
   // console.log("firstLoop")
 
-  // Creating our empty array and for loop for brick rows
+  // for loop for our rows
   for (let r = 0; r < brickRowTotal; r++) {
-    bricks[c][r] = { x: 0, y: 0, status: 1};
+    bricks[c][r] = { x: 0, y: 0, status: 1 };
   }
 }
-// Creating our field of bricks utilizing for loops for the rows and columns
+// Creating our field of bricks utilizing for loops on the rows and columns
 function makeBricks() {
   // Creating our empty array and for loop for brick columns
   for (let c = 0; c < brickColumnTotal; c++) {
@@ -128,82 +108,33 @@ function makeBricks() {
     for (let r = 0; r < brickRowTotal; r++) {
       // bricks[c][r] = { x: 0, y: 0, status: 1};
       if (bricks[c][r].status === 1) {
-        
-      // console.log(bricks)
-      // Creating new X and Y variables which will calculate new position of the next brick as for loop is running
-      let brickX = c * (brickWidth + brickPadding) + brickOffSetLeft;
-      // console.log(brickX)
-      let brickY = r * (brickHeight + brickPadding) + brickOffSetTop;
-      // console.log(brickY)
+        // console.log(bricks)
+        // Creating new X and Y variables which will calculate new position of the next brick as for loop is running
+        let brickX = c * (brickWidth + brickPadding) + brickOffSetLeft;
+        // console.log(brickX)
+        let brickY = r * (brickHeight + brickPadding) + brickOffSetTop;
+        // console.log(brickY)
 
-      // Setting our x and y coords for each new brick in the grid based on calculations above
-      bricks[c][r].x = brickX;
-      bricks[c][r].y = brickY;
-      //  console.log(brickX, "TEST STRING")
-      //  console.log(brickY, "ANOTHER TEST")
+        // Setting our x and y coords for each new brick in the grid based on calculations above
+        bricks[c][r].x = brickX;
+        bricks[c][r].y = brickY;
+        //  console.log(brickX, "TEST STRING")
+        //  console.log(brickY, "ANOTHER TEST")
 
-      //  if (!bricks[c][r].gotHit) {
-      // Triggering the path of bricks to start from the top left of canvas then cascade out
-      ctx.beginPath();
-      // This sets new x and y variables for each brick placed so they don't all spawn on top of each other
-      ctx.rect(brickX, brickY, brickWidth, brickHeight);
-      // Setting color for our bricks
-      ctx.fillStyle = "green";
-      // running fill method to populate all bricks based on the for loops
-      ctx.fill();
-      // Ending path here
-      ctx.closePath();
-
-      // console.log(ballX, brickX)
-      //  Testing logic if ball crosses x or y axis of one of the bricks in the grid (it logged)
-      // Need to write a for each statement to check for collision then splice individual brick if hit
-      
-      // console.log(ballX)
-      
-
-      // // bricks.forEach((brick) => {
-      //       if (ballX > brick.x && ballX < brick.x + brickWidth && ballY < brick.y) {
-      //           // console.log("WORKING???");
-      //           ballYDelta = -ballYDelta;
-              
-      //   //   ballX + brickWidth > brickX &&
-      //   //   ballX < brickX + brickWidth &&
-      //   //   ballY + brickHeight > brickY &&
-      //   //   ballY < brickY + brickHeight
-        
-      //     bricks.splice(2, 3);
-      //     // console.log(brick)
-      //     ballYDelta *= -1;
-        //     }
-        }
-        // if (ballX > brickX && ballX < brickX + brickWidth && ballY < brickY) {
-        //   console.log("WORKING???");
-        //   ballYDelta = -ballYDelta;
-        // }
-
-    
-    // console.log(ballX)
-    // console.log(bricks)
-    // Below here we create the hit Detect for bottom row
-    // const bottomRow = []
-  //   for (let i = 0; i < bricks.length; i++) {
-  //     // console.log("testing")
-  //     bottomRow.push(bricks[i][4])
-  //   }
-  //   console.log(bottomRow)
-  //   for(let coor = 0; coor < bottomRow.length; coor++) {
-  //     let x = bottomRow[coor].x
-  
-  //     console.log(bottomRow[coor])
-  //     break
-  //   }  
-  // }
+        // Triggering the path of bricks to start from the top left of canvas then cascade out
+        ctx.beginPath();
+        // This sets new x and y variables for each brick placed so they don't all spawn on top of each other
+        ctx.rect(brickX, brickY, brickWidth, brickHeight);
+        // Setting color for our bricks
+        ctx.fillStyle = "indigo";
+        // running fill method to populate all bricks based on the for loops
+        ctx.fill();
+        // Ending path here
+        ctx.closePath();
       }
+    }
+  }
 }
-}
-    
-    
-
 
 // Making our variables for the game ball
 // Ball will start it's path from center canvas for now
@@ -218,23 +149,21 @@ let radius = 10;
 
 // Going to set up our function for the ball's animation
 function makeBall() {
-  
   // outline color of ball
-  ctx.strokeStyle = "gold";
+  ctx.strokeStyle = "white";
   // method used to start ball pathing
   ctx.beginPath();
   // Here we invoke starting spot of ball, it's radius and multiplying PI by 2 to create perfect circle
   ctx.arc(ballX, ballY, radius, 0, 2 * Math.PI);
   // renders ball on canvas
-  ctx.fill();
+  ctx.fillStyle = "purple";
   // outline for ball
   ctx.stroke();
   ctx.closePath();
 }
 
-// Making a function for hit detection whenever ball collides with sides of canvas
+// Making a function for hit detection whenever ball collides with sides of canvas AND bricks
 function hitDetect() {
-  
   //  if ball on X axis trys to leave canvas, we set the movement to a negative value using Delta to rebound it in the opposite direction
   if (ballX + radius > 806 || ballX - radius < 0) {
     // Shorthand syntax for multiplying current location for new location
@@ -245,29 +174,22 @@ function hitDetect() {
     ballYDelta *= -1;
   }
   for (let c = 0; c < brickColumnTotal; c++) {
-      
-  
-  for (let r = 0; r < brickRowTotal; r++) {
-    let brick = bricks[c][r]
-    // console.log(brick)
-    if (brick.status === 1) {
-    if (ballX > brick.x && ballX < brick.x + brickWidth && ballY < brick.y) {
-      ballYDelta = -ballYDelta;
-      brick.status = 0;
-      console.log(brick);
+    // Creating a for loop which iterates through bricks array and states collision logic and changes status if brick is hit
+    for (let r = 0; r < brickRowTotal; r++) {
+      let brick = bricks[c][r];
+      // console.log(brick)
+      if (brick.status === 1) {
+        if (
+          ballX > brick.x &&
+          ballX < brick.x + brickWidth &&
+          ballY < brick.y
+        ) {
+          ballYDelta = -ballYDelta;
+          brick.status = 0;
+          console.log(brick);
+        }
+      }
     }
-  } 
-    // console.log(bricks)
-    // Creating new X and Y variables which will calculate new position of the next brick as for loop is running
-    // let brickX = c * (brickWidth + brickPadding) + brickOffSetLeft;
-    // // console.log(brickX)
-    // let brickY = r * (brickHeight + brickPadding) + brickOffSetTop;
-    // console.log(brickY)
-
-    // Setting our x and y coords for each new brick in the grid based on calculations above
-    // bricks[c][r].x = brickX;
-    // bricks[c][r].y = brickY;
-}
   }
 }
 // This will be our **MEGA** function that holds all the other functions and runs them once it's called
@@ -275,15 +197,12 @@ function hitDetect() {
 function gameLoop() {
   // Utilizing clearRect to "erase" each previous ball movement to the human eye
   ctx.clearRect(0, 0, 806, 450);
+  makeBall();
   makeBricks();
   ballX = ballX + ballXDelta;
   ballY = ballY + ballYDelta;
-  makeBall();
   makePaddle();
   hitDetect();
-  
-
-
   //   movePaddle();
 }
 
