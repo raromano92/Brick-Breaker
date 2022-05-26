@@ -186,7 +186,7 @@ function hitDetect() {
   else if (ballY + ballYDelta > 470) {
     alert("GAME OVER")
   }
-}
+
  
   for (let c = 0; c < brickColumnTotal; c++) {
     // Creating a for loop which iterates through bricks array and states collision logic and changes status if brick is hit
@@ -206,7 +206,7 @@ function hitDetect() {
       }
     }
   }
-
+}
 
 // This will be our **MEGA** function that holds all the other functions and runs them once it's called
 // Call everything in here (ball, interval, etc.)
