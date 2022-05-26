@@ -184,7 +184,7 @@ function hitDetect() {
   }
   // This logic allows ball to exit bottom of screen and call for "game over"
   else if (ballY + ballYDelta > 470) {
-    alert("GAME OVER")
+    // alert("GAME OVER")
   }
 
  
@@ -208,6 +208,9 @@ function hitDetect() {
   }
 }
 
+
+
+
 // This will be our **MEGA** function that holds all the other functions and runs them once it's called
 // Call everything in here (ball, interval, etc.)
 function gameLoop() {
@@ -223,9 +226,17 @@ function gameLoop() {
 }
 
 // Using SetInterval for how often the gameloop updates
-setInterval(gameLoop, 20);
+// setInterval(gameLoop, 40);
+
 // let interval = setInterval(gameLoop, 10)
 
 // Event Handlers
 document.addEventListener("keydown", keyDown, false);
 document.addEventListener("keyup", keyUp, false);
+
+document.getElementById("gamestart").addEventListener("click", function() {
+  setInterval(gameLoop, 20);
+});
+
+  // alert("start the game already")
+
