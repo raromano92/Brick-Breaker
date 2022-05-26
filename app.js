@@ -55,6 +55,7 @@ function makePaddle() {
   ctx.fillRect(paddleX, paddleY, 60, 10);
   ctx.closePath();
 }
+
 // Making our function for keypress down
 function keyDown(e) {
   if (e.keyCode === 37) {
@@ -107,19 +108,28 @@ function keyUp(e) {
 // }
 
 let bricks = [];
+for (let c = 0; c < brickColumnTotal; c++) {
+  bricks[c] = [];
+  // console.log("firstLoop")
 
+  // Creating our empty array and for loop for brick rows
+  for (let r = 0; r < brickRowTotal; r++) {
+    bricks[c][r] = { x: 0, y: 0, status: 1};
+  }
+}
 // Creating our field of bricks utilizing for loops for the rows and columns
 function makeBricks() {
   // Creating our empty array and for loop for brick columns
   for (let c = 0; c < brickColumnTotal; c++) {
-    bricks[c] = [];
+    // bricks[c] = [];
     // console.log("firstLoop")
 
     // Creating our empty array and for loop for brick rows
     for (let r = 0; r < brickRowTotal; r++) {
-      bricks[c][r] = { x: 0, y: 0 };
+      // bricks[c][r] = { x: 0, y: 0, status: 1};
+      if (bricks[c][r].status === 1) {
+        
       // console.log(bricks)
-
       // Creating new X and Y variables which will calculate new position of the next brick as for loop is running
       let brickX = c * (brickWidth + brickPadding) + brickOffSetLeft;
       // console.log(brickX)
@@ -147,31 +157,52 @@ function makeBricks() {
       // console.log(ballX, brickX)
       //  Testing logic if ball crosses x or y axis of one of the bricks in the grid (it logged)
       // Need to write a for each statement to check for collision then splice individual brick if hit
+      
+      // console.log(ballX)
+      
 
-      if (ballX > brickX && ballX < brickX + brickWidth && ballY < brickY) {
-        // console.log("WORKING???");
-        ballYDelta = -ballYDelta;
-      }
-
-      bricks.forEach((brick) => {
-            if (ballX > brick.x && ballX < brick.x + brickWidth && ballY < brick.y) {
-                // console.log("WORKING???");
-                ballYDelta = -ballYDelta;
+      // // bricks.forEach((brick) => {
+      //       if (ballX > brick.x && ballX < brick.x + brickWidth && ballY < brick.y) {
+      //           // console.log("WORKING???");
+      //           ballYDelta = -ballYDelta;
               
-        //   ballX + brickWidth > brickX &&
-        //   ballX < brickX + brickWidth &&
-        //   ballY + brickHeight > brickY &&
-        //   ballY < brickY + brickHeight
+      //   //   ballX + brickWidth > brickX &&
+      //   //   ballX < brickX + brickWidth &&
+      //   //   ballY + brickHeight > brickY &&
+      //   //   ballY < brickY + brickHeight
         
-          bricks.splice(2, 3);
-          console.log(brick)
-          ballYDelta *= -1;
-            }
-        });
-        
+      //     bricks.splice(2, 3);
+      //     // console.log(brick)
+      //     ballYDelta *= -1;
+        //     }
+        }
+        // if (ballX > brickX && ballX < brickX + brickWidth && ballY < brickY) {
+        //   console.log("WORKING???");
+        //   ballYDelta = -ballYDelta;
+        // }
+
+    
+    // console.log(ballX)
+    // console.log(bricks)
+    // Below here we create the hit Detect for bottom row
+    // const bottomRow = []
+  //   for (let i = 0; i < bricks.length; i++) {
+  //     // console.log("testing")
+  //     bottomRow.push(bricks[i][4])
+  //   }
+  //   console.log(bottomRow)
+  //   for(let coor = 0; coor < bottomRow.length; coor++) {
+  //     let x = bottomRow[coor].x
+  
+  //     console.log(bottomRow[coor])
+  //     break
+  //   }  
+  // }
       }
-    }
 }
+}
+    
+    
 
 
 // Making our variables for the game ball
@@ -187,6 +218,7 @@ let radius = 10;
 
 // Going to set up our function for the ball's animation
 function makeBall() {
+  
   // outline color of ball
   ctx.strokeStyle = "gold";
   // method used to start ball pathing
@@ -197,10 +229,12 @@ function makeBall() {
   ctx.fill();
   // outline for ball
   ctx.stroke();
+  ctx.closePath();
 }
 
 // Making a function for hit detection whenever ball collides with sides of canvas
 function hitDetect() {
+  
   //  if ball on X axis trys to leave canvas, we set the movement to a negative value using Delta to rebound it in the opposite direction
   if (ballX + radius > 806 || ballX - radius < 0) {
     // Shorthand syntax for multiplying current location for new location
@@ -210,29 +244,51 @@ function hitDetect() {
   if (ballY + radius > 450 || ballY - radius < 0) {
     ballYDelta *= -1;
   }
+  for (let c = 0; c < brickColumnTotal; c++) {
+      
+  
+  for (let r = 0; r < brickRowTotal; r++) {
+    let brick = bricks[c][r]
+    // console.log(brick)
+    if (brick.status === 1) {
+    if (ballX > brick.x && ballX < brick.x + brickWidth && ballY < brick.y) {
+      ballYDelta = -ballYDelta;
+      brick.status = 0;
+      console.log(brick);
+    }
+  } 
+    // console.log(bricks)
+    // Creating new X and Y variables which will calculate new position of the next brick as for loop is running
+    // let brickX = c * (brickWidth + brickPadding) + brickOffSetLeft;
+    // // console.log(brickX)
+    // let brickY = r * (brickHeight + brickPadding) + brickOffSetTop;
+    // console.log(brickY)
+
+    // Setting our x and y coords for each new brick in the grid based on calculations above
+    // bricks[c][r].x = brickX;
+    // bricks[c][r].y = brickY;
 }
-
-// function brickDetect() {
-//    bricks.forEach(brick => console.log(brick));
-// }
-
+  }
+}
 // This will be our **MEGA** function that holds all the other functions and runs them once it's called
 // Call everything in here (ball, interval, etc.)
 function gameLoop() {
   // Utilizing clearRect to "erase" each previous ball movement to the human eye
   ctx.clearRect(0, 0, 806, 450);
-  makeBall();
-  hitDetect();
+  makeBricks();
   ballX = ballX + ballXDelta;
   ballY = ballY + ballYDelta;
-  makeBricks();
+  makeBall();
   makePaddle();
-  //   brickDetect();
+  hitDetect();
+  
+
+
   //   movePaddle();
 }
 
 // Using SetInterval for how often the gameloop updates
-setInterval(gameLoop, 50);
+setInterval(gameLoop, 20);
 
 // Event Handlers
 document.addEventListener("keydown", keyDown, false);
