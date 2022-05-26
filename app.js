@@ -17,10 +17,11 @@ let brickShow = true;
 let paddleSpeed = 20;
 let paddleWidth = 60;
 let paddleHeight = 10;
-let paddleX = canvas.width / 2
+let paddleX = canvas.width / 2;
 let paddleY = 435;
 let leftArrowDown = false;
 let rightArrowDown = false;
+let gameOver = false;
 // Event handlers
 
 // Setting our width and height for the canvas
@@ -171,23 +172,24 @@ function hitDetect() {
   if (ballX + ballXDelta > 806 - radius || ballX + ballXDelta < radius) {
     // Shorthand syntax for multiplying current location for new location
     ballXDelta *= -1;
-}
-// This logic allows for bounces off the top
+  }
+  // This logic allows for bounces off the top
   if (ballY + ballYDelta < 0) {
     ballYDelta *= -1;
   }
   // // This logic allows for the ball to rebound off the paddle
-  if (ballX > paddleX &&
-      ballX < paddleX + paddleWidth &&
-      ballY + radius > paddleY) {
-      ballYDelta *= -1;
+  if (
+    ballX > paddleX &&
+    ballX < paddleX + paddleWidth &&
+    ballY + radius > paddleY
+  ) {
+    ballYDelta *= -1;
   }
   // This logic allows ball to exit bottom of screen and call for "game over"
   else if (ballY + ballYDelta > 470) {
     // alert("GAME OVER")
   }
 
- 
   for (let c = 0; c < brickColumnTotal; c++) {
     // Creating a for loop which iterates through bricks array and states collision logic and changes status if brick is hit
     for (let r = 0; r < brickRowTotal; r++) {
@@ -208,8 +210,15 @@ function hitDetect() {
   }
 }
 
-
-
+function endGame() {
+  if (ballY + ballYDelta > 470) {
+    gameOver = true;
+  }
+    if(gameOver === true) {
+      console.log("gg")
+    }
+    return;
+}
 
 // This will be our **MEGA** function that holds all the other functions and runs them once it's called
 // Call everything in here (ball, interval, etc.)
@@ -222,6 +231,7 @@ function gameLoop() {
   ballY = ballY + ballYDelta;
   makePaddle();
   hitDetect();
+  endGame();
   //   movePaddle();
 }
 
@@ -234,9 +244,8 @@ function gameLoop() {
 document.addEventListener("keydown", keyDown, false);
 document.addEventListener("keyup", keyUp, false);
 
-document.getElementById("gamestart").addEventListener("click", function() {
+gamestart.addEventListener("click", function () {
   setInterval(gameLoop, 20);
 });
 
-  // alert("start the game already")
-
+// alert("start the game already")
