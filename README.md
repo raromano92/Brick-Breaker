@@ -4,7 +4,9 @@ Game Name: Brick Breaker 9000
 
 Premise: Destroy all bricks to win the game!
 
-User Story
+The goal of the game is of course, to break all the bricks! 
+It was always one of my favorites growing up so I wanted to make my own version and it can get definitley get addicting after a while. Have fun!
+
 
 Instructions:
 
