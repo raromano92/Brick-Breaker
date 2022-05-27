@@ -2,6 +2,8 @@
 
 // Setting up canvas and all of my elements for game
 let canvas = document.querySelector("#canvas");
+let gameReset = document.querySelector("#newgame")
+let goAgain = document.querySelector("#gonext")
 let ctx = canvas.getContext("2d"); // 2d canvas for the game
 let score = document.querySelector("score"); // keeping track of score
 let paddle = document.querySelector("#paddle");
@@ -217,15 +219,21 @@ function endGame() {
   }
   if (gameOver === true) {
     // console.log("gg")
-  }
-  if (gameOver) {
+  // } if (gameOver)
     // console.log("YOU LOSE!");
+    canvas.style.display = "none"
+    gameReset.style.display = "block"
+    gameReset.style.background = "green"
+    let restart = document.getElementById("gg")
+    restart.innerText = "GAME OVER \r\n YOU LOSE!"
+    
     // Adding reload method after gameover occurs so it clears the canvas for the next game
-    document.location.reload();
-    clearInterval(interval);
+    // document.location.reload();
+    // clearInterval(interval);
   }
   // document.location.reload();
 }
+
 
 // This will be our **MEGA** function that holds all the other functions and runs them once it's called
 // Call everything in here (ball, interval, etc.)
@@ -247,10 +255,11 @@ function gameLoop() {
 
 // let interval = setInterval(gameLoop, 10)
 
-// Event Handlers
+// Event Handlers for left and right arrow keys
 document.addEventListener("keydown", keyDown, false);
 document.addEventListener("keyup", keyUp, false);
 
+// Event Handler for the play button
 gamestart.addEventListener("click", function () {
   setInterval(gameLoop, 20);
 });
