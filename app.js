@@ -55,7 +55,7 @@ window.addEventListener("DOMContentLoaded", (event) => {
 function makePaddle() {
   ctx.beginPath();
   ctx.rect(paddle.x, paddle.y, paddle.w, paddle.h);
-  ctx.fillStyle = "goldenrod";
+  ctx.fillStyle = "white";
   ctx.fillRect(paddleX, paddleY, 60, 10);
   ctx.closePath();
   paddle.style.right = "400px";
@@ -199,6 +199,7 @@ function hitDetect() {
     for (let r = 0; r < brickRowTotal; r++) {
       let brick = bricks[c][r];
       // console.log(brick)
+      // Logic saying if a brick has been hit, then we need to remove it from the board by changing visibility/status to 0
       if (brick.status === 1) {
         if (
           ballX > brick.x &&
@@ -210,12 +211,16 @@ function hitDetect() {
           console.log(brick);
         
           // At this point the ball is considered broken/removed from the array so we can add to the score
+          // Used very similar logic from what we went over in class for score which was very helpful
           document.querySelector("#score")
           let gameScore = Number(score.textContent);
           let activeScore = gameScore + 5;
           score.textContent = activeScore;
           
         }
+          if (score === 250) {
+            alert("WINNER!")
+          }
       }
     }
   }
