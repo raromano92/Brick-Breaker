@@ -1,16 +1,16 @@
 # Brick-Breaker
 
-Game Name: Brick Breaker
+Game Name: Brick Breaker 9000
 
-Premise: Destroy all bricks to win the game
+Premise: Destroy all bricks to win the game!
 
 User Story
 
-As a user I want to
+Instructions:
 
-. Control paddle using arrow movement
+. Control paddle using arrow key movement
 
-. Predict ball movement based on ball trajectory off canvas top/sides
+. Predict ball movement based on trajectory off canvas top/sides
 
 . Guide ball toward bricks to destroy them
 
