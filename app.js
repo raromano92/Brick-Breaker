@@ -15,7 +15,7 @@ let brickPadding = 10;
 let brickOffSetTop = 10;
 let brickOffSetLeft = 10;
 let brickShow = true;
-let paddleSpeed = 20;
+let paddleSpeed = 25;
 let paddleWidth = 60;
 let paddleHeight = 10;
 let paddleX = 400;
@@ -146,8 +146,8 @@ function makeBricks() {
 let ballX = canvas.width / 2;
 let ballY = canvas.height / 2;
 // Delta refers to the new location of the ball everytime it's moving on screen (using to set direction/speed of ball)
-let ballXDelta = 2;
-let ballYDelta = 2;
+let ballXDelta = 3;
+let ballYDelta = 3;
 
 // Basically setting size of the ball using radius here
 let radius = 10;
@@ -155,17 +155,19 @@ let radius = 10;
 // Going to set up our function for the ball's animation
 function makeBall() {
   // outline color of ball
-  ctx.strokeStyle = "white";
+  ctx.strokeStyle = "white"
+  ctx.fillStyle = "#F5FFFA";
   // method used to start ball pathing
   ctx.beginPath();
   // Here we invoke starting spot of ball, it's radius and multiplying PI by 2 to create perfect circle
   ctx.arc(ballX, ballY, radius, 0, 2 * Math.PI);
   // renders ball on canvas
-  ctx.fillStyle = "purple";
+  
   // outline for ball
   ctx.stroke();
   ctx.closePath();
 }
+
 
 // Making a function for hit detection whenever ball collides with sides of canvas AND bricks
 function hitDetect() {
@@ -246,8 +248,8 @@ function endGame() {
     restart.innerText = "GAME OVER \r\n YOU LOSE!";
 
     // Adding reload method after gameover occurs so it clears the canvas for the next game
-    document.location.reload();
-    clearInterval(interval);
+    // document.location.reload();
+    // clearInterval(interval);
   }
 }
 
@@ -262,9 +264,7 @@ function gameLoop() {
   ballY = ballY + ballYDelta;
   makePaddle();
   hitDetect();
-  // keepScore();
   endGame();
-  //   movePaddle();
 }
 
 // Using SetInterval for how often the gameloop updates
@@ -278,7 +278,7 @@ document.addEventListener("keyup", keyUp, false);
 
 // Event Handler for the play button
 gamestart.addEventListener("click", function () {
-  setInterval(gameLoop, 20);
+  setInterval(gameLoop, 10);
 });
 
 // alert("start the game already")

@@ -8,8 +8,8 @@ html,body {
     text-align: center;
     /* background-color: navajowhite; */
     background-image: url(https://images.unsplash.com/photo-1535700454243-9a953c87cd47?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80); 
-    background-size: contain;
-    background-repeat: repeat;
+    background-size: cover;
+    background-repeat: no-repeat;
   }
   
   /* h1 {
@@ -19,8 +19,8 @@ html,body {
   } */
 
   h2 {
-    font-family: 'Impact';
-    font-size: 36px;
+    font-family: 'Bangers', cursive;
+    font-size: 42px;
     color: goldenrod;
     margin-top: 10px;
     
@@ -48,6 +48,7 @@ html,body {
                         "game game game"
                         "btm-left center btm-right";
   border: 5px solid goldenrod;
+  border-radius: 10px;
   }
   
   /* #top-left, #top-right, #btm-left, #btm-right {
@@ -87,8 +88,8 @@ html,body {
     margin-left: 140px;
     margin-top: 5px;
     border-radius: 10px;
-    background-color: black;
-    border: solid 2px goldenrod;
+    background-color: #F5FFFA;
+    border: 3px solid goldenrod;
     
     
 
@@ -102,7 +103,7 @@ html,body {
     margin-left: -40px;
     padding-left: 40px;
     padding-right: 40px;
-    padding-bottom: 10px;
+    padding-bottom: 0px;
     padding-top: 0px;
     border-radius: 30px;
     background-color: #F5FFFA;
@@ -118,14 +119,14 @@ html,body {
   }
 
   #gg {
-    color: white;
+    color: #F5FFFA;
     position: fixed;
     top: 50%;
     left: 50%;
     margin-top: -75px;
     margin-left: -150px;
     font-size: 80px;
-    font-family: Impact;
+    font-family: 'Bangers', cursive;
 
   }
 
@@ -142,12 +143,19 @@ html,body {
   }
 
   #gamestart {
-    font-size: 28px;
+    cursor: pointer;
+    font-family: 'Bangers', cursive;
+    font-size: 32px;
     color: goldenrod;
   }
 
 
   #score {
-    font-size: 28px;
+    font-family: 'Bangers', cursive;
+    font-size: 38px;
     color: goldenrod;
+  }
+
+  #ball {
+    color:red !important;
   }
