@@ -2,8 +2,8 @@
 
 // Setting up canvas and all of my elements for game
 let canvas = document.querySelector("#canvas");
-let gameReset = document.querySelector("#newgame")
-let goAgain = document.querySelector("#gonext")
+let gameReset = document.querySelector("#newgame");
+let goAgain = document.querySelector("#gonext");
 let ctx = canvas.getContext("2d"); // 2d canvas for the game
 let score = document.querySelector("score"); // keeping track of score
 let paddle = document.querySelector("#paddle");
@@ -19,7 +19,7 @@ let brickShow = true;
 let paddleSpeed = 20;
 let paddleWidth = 60;
 let paddleHeight = 10;
-let paddleX = canvas.width / 2;
+let paddleX = 400;
 let paddleY = 435;
 let leftArrowDown = false;
 let rightArrowDown = false;
@@ -59,6 +59,7 @@ function makePaddle() {
   ctx.fillStyle = "goldenrod";
   ctx.fillRect(paddleX, paddleY, 60, 10);
   ctx.closePath();
+  paddle.style.right = "400px";
 }
 
 // Making our function for keypress down
@@ -219,21 +220,20 @@ function endGame() {
   }
   if (gameOver === true) {
     // console.log("gg")
-  // } if (gameOver)
+    // } if (gameOver)
     // console.log("YOU LOSE!");
-    canvas.style.display = "none"
-    gameReset.style.display = "block"
-    gameReset.style.background = "green"
-    let restart = document.getElementById("gg")
-    restart.innerText = "GAME OVER \r\n YOU LOSE!"
-    
+    canvas.style.display = "none";
+    gameReset.style.display = "block";
+    gameReset.style.background = "green";
+    let restart = document.getElementById("gg");
+    restart.innerText = "GAME OVER \r\n YOU LOSE!";
+
     // Adding reload method after gameover occurs so it clears the canvas for the next game
     // document.location.reload();
     // clearInterval(interval);
   }
   // document.location.reload();
 }
-
 
 // This will be our **MEGA** function that holds all the other functions and runs them once it's called
 // Call everything in here (ball, interval, etc.)
