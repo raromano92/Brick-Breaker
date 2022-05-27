@@ -5,7 +5,6 @@ let canvas = document.querySelector("#canvas");
 let gameReset = document.querySelector("#newgame");
 let goAgain = document.querySelector("#gonext");
 let ctx = canvas.getContext("2d"); // 2d canvas for the game
-let score = document.querySelector("score"); // keeping track of score
 let paddle = document.querySelector("#paddle");
 let ball = document.querySelector("#ball");
 let brickRowTotal = 5;
@@ -207,11 +206,28 @@ function hitDetect() {
           ballYDelta = -ballYDelta;
           brick.status = 0;
           console.log(brick);
+        
+          // At this point the ball is considered broken/removed from the array so we can add to the score
+          document.querySelector("#score")
+          let gameScore = Number(score.textContent);
+          let activeScore = gameScore + 5;
+          score.textContent = activeScore;
+          
         }
       }
     }
   }
 }
+
+// let score = 0;
+// // document.getElementById("num").innerHTML = +score;
+// // Function to keep score
+// function keepScore() {
+//   //  alert("it did a thing")
+//   ctx.font = "20px Impact";
+//   ctx.fillStyle = "white"
+//   ctx.fillText("Score: " +score, 700, 445);
+// }
 
 // Making a game over function based on ball leaving bottom of canvas logic
 function endGame() {
@@ -222,6 +238,7 @@ function endGame() {
     // console.log("gg")
     // } if (gameOver)
     // console.log("YOU LOSE!");
+    // Clearing canvas and inserting game over msg
     canvas.style.display = "none";
     gameReset.style.display = "block";
     gameReset.style.background = "green";
@@ -229,10 +246,9 @@ function endGame() {
     restart.innerText = "GAME OVER \r\n YOU LOSE!";
 
     // Adding reload method after gameover occurs so it clears the canvas for the next game
-    // document.location.reload();
-    // clearInterval(interval);
+    document.location.reload();
+    clearInterval(interval);
   }
-  // document.location.reload();
 }
 
 // This will be our **MEGA** function that holds all the other functions and runs them once it's called
@@ -246,6 +262,7 @@ function gameLoop() {
   ballY = ballY + ballYDelta;
   makePaddle();
   hitDetect();
+  // keepScore();
   endGame();
   //   movePaddle();
 }

@@ -6,7 +6,7 @@ html,body {
   body {
     padding-top: 1em;
     text-align: center;
-    background-color: black;
+    background-color: navajowhite;
     background-size: cover;
     background-repeat: space;
   }
@@ -49,12 +49,15 @@ html,body {
   
   #top-left {
     grid-area: top-left;
-   
+    width: 800px;
+    
   }
   
   #top-right {
     grid-area: top-right;
-    /* background-color: #222; */
+    margin-top: 600px;
+    margin-left: -1000px;
+    background-color: red !important;
     /* background-image: url('../img/funky-lines.png'); */
   }
   
@@ -65,6 +68,8 @@ html,body {
   
   #btm-left {
     grid-area: btm-left;
+    width: 150px;
+    
 
     /* background-color: #222; */
   }
